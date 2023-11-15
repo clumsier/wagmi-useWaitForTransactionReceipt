@@ -80,6 +80,11 @@ function SendEther() {
 }
 
 export default function Home() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <>
       <Head>
@@ -89,17 +94,19 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
-        <div style={{ display: 'grid', gap: '20px' }}>
-          <div style={{ display: 'flex', gap: '12px' }}>
-            <WalletOptions />
+        {mounted ? (
+          <div style={{ display: 'grid', gap: '20px' }}>
+            <div style={{ display: 'flex', gap: '12px' }}>
+              <WalletOptions />
+            </div>
+            <div>
+              <Account />
+            </div>
+            <div>
+              <SendEther />
+            </div>
           </div>
-          <div>
-            <Account />
-          </div>
-          <div>
-            <SendEther />
-          </div>
-        </div>
+        ) : null}
       </main>
     </>
   );
